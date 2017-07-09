@@ -1,0 +1,14 @@
+{
+  "name": "syntacticvexation-hiera_file",
+  "version": "0.1.0",
+  "author": "syntacticvexation",
+  "summary": "Hiera 5 compatilble hiera-file module",
+  "license": "GPL-3.0",
+  "source": "https://github.com/syntacticvexation/hiera_file.git",
+  "project_page": "https://github.com/syntacticvexation/hiera_file"
+  "issues_url": "https://github.com/syntacticvexation/hiera_file/issues",
+  "dependencies": [
+  ],
+  "data_provider": null
+}
+
