@@ -1,17 +1,23 @@
 Puppet::Functions.create_function(:hiera_file) do
-  dispatch :lookup_key do
-    param 'Variant[String, Numeric]', :key
+  dispatch :data_dig do
+    param 'Variant[String, Array[String]]', :key
     param 'Hash', :options
     param 'Puppet::LookupContext', :context
   end
 
-  def lookup_key(key, options, context)
+  def data_dig(key, options, context)
     unless options.include?('path')
       raise ArgumentError,
-        "'hiera_file_lookup_key': one of 'path', 'paths' 'glob', 'globs' or 'mapped_paths' must be declared in hiera.yaml when using this lookup_key function"
+        "'hiera_file_data_dig': 'path' must be declared in hiera.yaml when using this data_dig function"
+    end
+    
+    if key.is_a? String
+      filename = key
+    else
+      filename = key.join('.')
     end
 
-    path = File.join(options['path'], key)
+    path = File.join(options['path'], filename)
     
     if File.exist? path
       return context.cache(key, IO.binread(path))
@@ -20,5 +26,3 @@ Puppet::Functions.create_function(:hiera_file) do
     context.not_found
   end
 end
-
-
